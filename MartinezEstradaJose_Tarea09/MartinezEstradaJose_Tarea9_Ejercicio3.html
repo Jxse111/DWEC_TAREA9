@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Simple</title>
+</head>
+
+<body>
+    <center>
+        <h1>Bienvenido a la Biblioteca</h1>
+
+        <!-- Buscar libro por título -->
+        <h3>Buscar libro por título</h3>
+        <input type="text" id="tituloBusqueda" placeholder="Introduce el título">
+        <button onclick="buscarLibroPorTitulo()">Buscar</button>
+
+        <!-- Comprobar si el libro existe -->
+        <h3>¿El libro existe?</h3>
+        <input type="text" id="tituloExiste" placeholder="Introduce el título">
+        <button onclick="existeLibro()">Comprobar</button>
+
+        <!-- Mostrar resultados -->
+        <div id="resultados"></div>
+
+        <script>
+            // Lista de libros en la biblioteca
+            const biblioteca = [
+                { titulo: "El Quijote", autor: "Miguel de Cervantes", anioPublicacion: 1605 },
+                { titulo: "El corazón de las tinieblas", autor: "Joseph Conrad", anioPublicacion: 1902 },
+                { titulo: "Desvirgando la noche con poemas suicidas", autor: "Carlos Kaballero", anioPublicacion: 2022 }
+            ];
+
+            // Buscar un libro por título
+            function buscarLibroPorTitulo() {
+                const titulo = document.getElementById("tituloBusqueda").value;  // Obtener el título
+                const libro = biblioteca.find(libro => libro.titulo.toLowerCase() === titulo.toLowerCase());  // Buscar el libro
+                if (libro) {
+                    mostrarResultado(`Libro encontrado: ${libro.titulo} de ${libro.autor}, publicado en ${libro.anioPublicacion}`);
+                } else {
+                    mostrarResultado("No se encontró el libro.");
+                }
+            }
+
+            // Comprobar si un libro existe
+            function existeLibro() {
+                const titulo = document.getElementById("tituloExiste").value;  // Obtener el título
+                const existe = biblioteca.some(libro => libro.titulo.toLowerCase() === titulo.toLowerCase());  // Verificar existencia
+                mostrarResultado(existe ? "El libro existe en la biblioteca." : "El libro no existe en la biblioteca.");
+            }
+
+            // Mostrar resultados en la página
+            function mostrarResultado(mensaje) {
+                document.getElementById("resultados").innerHTML = mensaje;
+            }
+        </script>
+    </center>
+</body>
+
+</html>

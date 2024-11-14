@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio2</title>
+</head>
+
+<body>
+    <center>
+        <h1>Lista de Estudiantes</h1>
+
+        <!-- Formulario para agregar estudiantes -->
+        <h2>Agregar un Estudiante</h2>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <br><br>
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad">
+        <br><br>
+        <label for="calificacion">Calificación:</label>
+        <input type="number" id="calificacion">
+        <br><br>
+        <button onclick="agregarEstudiante()">Agregar Estudiante</button>
+
+        <h3>Estudiantes:</h3>
+        <div id="estudiantes"></div>
+
+        <h3>Promedio de Calificaciones:</h3>
+        <div id="promedio"></div>
+
+        <script>
+            // Array de estudiantes iniciales
+            var estudiantes = [
+                { nombre: "José Manuel", edad: 15, calificacion: 60 },
+                { nombre: "Lorena", edad: 16, calificacion: 75 },
+                { nombre: "Miguel", edad: 18, calificacion: 100 }
+            ];
+
+            // Función para mostrar la lista de estudiantes y su promedio
+            function mostrarEstudiantes() {
+                var listaHTML = "<ul>";
+                estudiantes.forEach(function (estudiante) {
+                    listaHTML += "<li>" + estudiante.nombre + " (Edad: " + estudiante.edad + ", Calificación: " + estudiante.calificacion + ")</li>";
+                });
+                listaHTML += "</ul>";
+                document.getElementById("estudiantes").innerHTML = listaHTML;
+
+                // Calcular y mostrar el promedio
+                var promedio = calcularPromedio();
+                document.getElementById("promedio").innerHTML = "Promedio: " + promedio.toFixed(2);
+            }
+
+            // Función para calcular el promedio de las calificaciones
+            function calcularPromedio() {
+                var suma = 0;
+                estudiantes.forEach(function (estudiante) {
+                    suma += estudiante.calificacion;
+                });
+                return suma / estudiantes.length;
+            }
+
+            // Función para agregar un nuevo estudiante
+            function agregarEstudiante() {
+                var nombre = document.getElementById("nombre").value;
+                var edad = parseInt(document.getElementById("edad").value);
+                var calificacion = parseInt(document.getElementById("calificacion").value);
+
+                // Agregar solo si todos los campos están completos
+                if (nombre && edad && !isNaN(calificacion)) {
+                    estudiantes.push({ nombre: nombre, edad: edad, calificacion: calificacion });
+                    mostrarEstudiantes(); // Actualizar la lista y el promedio
+                } else {
+                    alert("Por favor, complete todos los campos.");
+                }
+
+                // Limpiar los campos del formulario
+                document.getElementById("nombre").value = "";
+                document.getElementById("edad").value = "";
+                document.getElementById("calificacion").value = "";
+            }
+
+            // Mostrar estudiantes al cargar la página
+            mostrarEstudiantes();
+        </script>
+    </center>
+</body>
+
+</html>

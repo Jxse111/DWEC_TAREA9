@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario</title>
+</head>
+
+<body>
+    <center>
+        <h1>Gestión de Inventario</h1>
+
+        <button onclick="mostrarInventario()">Mostrar Inventario</button>
+        <button onclick="agregarProducto()">Agregar Producto</button>
+        <button onclick="mostrarTotalInventario()">Mostrar Total Inventario</button>
+
+        <h2>Nuevo Producto</h2>
+        <label>Nombre del producto:</label>
+        <input type="text" id="nombre"><br><br>
+        
+        <label>Cantidad:</label>
+        <input type="number" id="cantidad"><br><br>
+        
+        <label>Precio:</label>
+        <input type="number" id="precio"><br><br>
+
+        <script>
+            // Inventario inicial
+            var inventario = [
+                {nombre : "Saco de cemento", cantidad : 25, precio : 2.90},
+                {nombre : "Utensilios de cocina", cantidad : 12, precio : 1.20},
+                {nombre : "Agua", cantidad : 100, precio : 1.30}
+            ];
+
+            // Función para agregar un producto
+            function agregarProducto() {
+                var nombre = document.getElementById("nombre").value;
+                var cantidad = parseInt(document.getElementById("cantidad").value);
+                var precio = parseFloat(document.getElementById("precio").value);
+
+                // Verificar que los campos no estén vacíos y los valores sean correctos
+                if (nombre && cantidad > 0 && precio > 0) {
+                    inventario.push({nombre: nombre, cantidad: cantidad, precio: precio});
+
+                    // Limpiar campos después de agregar
+                    document.getElementById("nombre").value = '';
+                    document.getElementById("cantidad").value = '';
+                    document.getElementById("precio").value = '';
+
+                    alert("Producto agregado exitosamente!");
+                } else {
+                    alert("Por favor ingresa todos los datos correctamente.");
+                }
+            }
+
+            // Función para mostrar el inventario
+            function mostrarInventario() {
+                var inventarioHTML = "<h3>Inventario Actual:</h3><ul>";
+
+                inventario.forEach(function (item) {
+                    inventarioHTML += "<li>" + item.nombre + " - Cantidad: " + item.cantidad + " - Precio: $" + item.precio.toFixed(2) + "</li>";
+                });
+
+                inventarioHTML += "</ul>";
+                document.getElementById("inventario").innerHTML = inventarioHTML;
+            }
+
+            // Función para mostrar el valor total del inventario
+            function mostrarTotalInventario() {
+                var total = 0;
+                inventario.forEach(function (item) {
+                    total += item.cantidad * item.precio;
+                });
+                alert("El valor total del inventario es: $" + total.toFixed(2));
+            }
+        </script>
+
+        <!-- Contenedor para mostrar el inventario -->
+        <div id="inventario"></div>
+    </center>
+</body>
+
+</html>
